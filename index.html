@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarking App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📌</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="app-title">Boookmarking App</h1>
+                <p class="app-subtitle">Your modern bookmarking solution</p>
+            </div>
+            <div class="header-right">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="import-btn" class="icon-button" aria-label="Import bookmarks">
+                    <i class="fas fa-file-import"></i>
+                </button>
+                <button id="export-btn" class="icon-button" aria-label="Export bookmarks">
+                    <i class="fas fa-file-export"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <div class="sidebar">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search bookmarks..." class="search-input">
+                    <button id="search-btn" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="tags-container">
+                    <h3 class="tags-title">Tags</h3>
+                    <div class="tags-list" id="tags-list">
+                        <button class="tag active" data-tag="all">All</button>
+                        <!-- Tags will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="stats-container">
+                    <h3 class="stats-title">Stats</h3>
+                    <div class="stats-item">
+                        <span class="stats-label">Total:</span>
+                        <span class="stats-value" id="total-bookmarks">0</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">Tags:</span>
+                        <span class="stats-value" id="total-tags">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="bookmark-form-container">
+                    <form id="bookmark-form" class="bookmark-form">
+                        <div class="form-group">
+                            <input type="text" id="bookmark-title" placeholder="Title" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="url" id="bookmark-url" placeholder="https://example.com" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="bookmark-tags" placeholder="tags, separated, by, commas" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="bookmark-notes" placeholder="Notes (optional)" class="form-input"></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-plus"></i> Add Bookmark
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bookmarks-container">
+                    <div class="bookmarks-header">
+                        <h2 class="bookmarks-title" id="bookmarks-title">All Bookmarks</h2>
+                        <div class="sort-options">
+                            <select id="sort-select" class="sort-select">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="title-asc">Title (A-Z)</option>
+                                <option value="title-desc">Title (Z-A)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bookmarks-grid" id="bookmarks-grid">
+                        <!-- Bookmarks will be dynamically added here -->
+                        <div class="empty-state">
+                            <i class="fas fa-bookmark empty-icon"></i>
+                            <h3>No bookmarks yet</h3>
+                            <p>Add your first bookmark using the form above</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for editing bookmarks -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Edit Bookmark</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-group">
+                    <input type="text" id="edit-title" placeholder="Title" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <input type="url" id="edit-url" placeholder="https://example.com" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="edit-tags" placeholder="tags, separated, by, commas" class="form-input">
+                </div>
+                <div class="form-group">
+                    <textarea id="edit-notes" placeholder="Notes (optional)" class="form-input"></textarea>
+                </div>
+                <button type="submit" class="submit-button">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Preview card that appears on hover -->
+    <div id="preview-card" class="preview-card hidden">
+        <div class="preview-header">
+            <h3 class="preview-title"></h3>
+            <div class="preview-url"></div>
+        </div>
+        <div class="preview-content">
+            <div class="preview-notes"></div>
+            <div class="preview-tags"></div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
